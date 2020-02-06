@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:background="#00ABE3">
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:id="@+id/imageView_ip"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button_detect"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="#EBFC05"
+            android:text="Detect"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

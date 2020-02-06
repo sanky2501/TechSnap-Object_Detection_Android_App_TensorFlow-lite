@@ -1,0 +1,89 @@
+/*
+ * Copyright 2010 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.gradle.api;
+
+import groovy.lang.Closure;
+import groovy.lang.MissingPropertyException;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.LoggingManager;
+import org.gradle.api.plugins.Convention;
+import org.gradle.api.plugins.ExtensionAware;
+import org.gradle.api.provider.Provider;
+import org.gradle.api.specs.Spec;
+import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.TaskDependency;
+import org.gradle.api.tasks.TaskDestroyables;
+import org.gradle.api.tasks.TaskInputs;
+import org.gradle.api.tasks.TaskLocalState;
+import org.gradle.api.tasks.TaskOutputs;
+import org.gradle.api.tasks.TaskState;
+
+import javax.annotation.Nullable;
+import java.io.File;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * <p>A <code>Task</code> represents a single atomic piece of work for a build, such as compiling classes or generating
+ * javadoc.</p>
+ *
+ * <p>Each task belongs to a {@link Project}. You can use the various methods on {@link
+ * org.gradle.api.tasks.TaskContainer} to create and lookup task instances. For example, {@link
+ * org.gradle.api.tasks.TaskContainer#create(String)} creates an empty task with the given name. You can also use the
+ * {@code task} keyword in your build file: </p>
+ * <pre>
+ * task myTask
+ * task myTask { configure closure }
+ * task myTask(type: SomeType)
+ * task myTask(type: SomeType) { configure closure }
+ * </pre>
+ *
+ * <p>Each task has a name, which can be used to refer to the task within its owning project, and a fully qualified
+ * path, which is unique across all tasks in all projects. The path is the concatenation of the owning project's path
+ * and the task's name. Path elements are separated using the {@value org.gradle.api.Project#PATH_SEPARATOR}
+ * character.</p>
+ *
+ * <h3>Task Actions</h3>
+ *
+ * <p>A <code>Task</code> is made up of a sequence of {@link Action} objects. When the task is executed, each of the
+ * actions is executed in turn, by calling {@link Action#execute}. You can add actions to a task by calling {@link
+ * #doFirst(Action)} or {@link #doLast(Action)}.</p>
+ *
+ * <p>Groovy closures can also be used to provide a task action. When the action is executed, the closure is called with
+ * the task as parameter.  You can add action closures to a task by calling {@link #doFirst(groovy.lang.Closure)} or
+ * {@link #doLast(groovy.lang.Closure)}.</p>
+ *
+ * <p>There are 2 special exceptions which a task action can throw to abort execution and continue without failing the
+ * build. A task action can abort execution of the action and continue to the next action of the task by throwing a
+ * {@link org.gradle.api.tasks.StopActionException}. A task action can abort execution of the task and continue to the
+ * next task by throwing a {@link org.gradle.api.tasks.StopExecutionException}. Using these exceptions allows you to
+ * have precondition actions which skip execution of the task, or part of the task, if not true.</p>
+ *
+ * <a name="dependencies"></a><h3>Task Dependencies and Task Ordering</h3>
+ *
+ * <p>A task may have dependencies on other tasks or might be scheduled to always run after another task.
+ * Gradle ensures that all task dependencies and ordering rules are honored when executing tasks, so that the task is executed after
+ * all of its dependencies and any "must run after" tasks have been executed.</p>
+ *
+ * <p>Dependencies to a task are controlled using {@link #dependsOn(Object...)} or {@link #setDependsOn(Iterable)},
+ * and {@link #mustRunAfter(Object...)}, {@link #setMustRunAfter(Iterable)}, {@link #shouldRunAfter(Object...)} and
+ * {@link #setShouldRunAfter(Iterable)} are used to specify ordering between tasks. You can use objects of any of
+ * the following types to specify dependencies and ordering:</p>
+ *
+ * <ul>
+ *
+ * <li>A {@code String}, {@code CharSequence} or {@code groovy.lang.GString} task path or name. A relative path is
