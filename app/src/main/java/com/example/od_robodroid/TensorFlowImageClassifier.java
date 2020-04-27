@@ -31,7 +31,7 @@ public class TensorFlowImageClassifier implements Classifier {
     private Interpreter interpreter;
     private int inputSize;
     private List<String> labelList;
-    private boolean quant;
+    private boolean quant=false;
 
     private TensorFlowImageClassifier() {
 

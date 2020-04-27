@@ -15,6 +15,7 @@ import static com.example.od_robodroid.Global.INPUT_SIZE;
 import static com.example.od_robodroid.Global.LABEL_PATH;
 import static com.example.od_robodroid.Global.MODEL_PATH;
 import static com.example.od_robodroid.Global.QUANT;
+import static com.example.od_robodroid.Global.classifier;
 import static com.example.od_robodroid.Global.executor;
 import static com.example.od_robodroid.Global.mBitmap;
 import static com.example.od_robodroid.Global.mBitmap1;
@@ -49,6 +50,7 @@ public class ImagePreview extends AppCompatActivity {
                         Intent i =new Intent(getApplicationContext(), Predict.class);
                         startActivity(i);
                         finish();
+
                     }
                 };
                 initTensorFlow.start();
@@ -61,7 +63,7 @@ public class ImagePreview extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Global.classifier = TensorFlowImageClassifier.create(
+                    classifier = TensorFlowImageClassifier.create(
                             getAssets(),
                             MODEL_PATH,
                             LABEL_PATH,
