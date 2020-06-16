@@ -7,6 +7,7 @@ The model files are already in a assests folder. You don't need to do any steps 
 
 Application can run either on device or emulator.
 
+**For full documentation [Click Here](https://drive.google.com/file/d/185g8PrHTGxcy9uiWdOcJEsuyj5AWDn3m/view?usp=sharing)**
 
 ## Build the app using Android Studio
 
@@ -25,7 +26,6 @@ You may also need to install various platforms and tools, if you get errors like
 - If it asks you to use Instant Run, click Proceed Without Instant Run.
 Also, you need to have an Android device plugged in with developer options enabled at this point. See here for more details on setting up developer devices.
 
-**For full documentation [Click Here](https://drive.google.com/file/d/185g8PrHTGxcy9uiWdOcJEsuyj5AWDn3m/view?usp=sharing)**
 
 ### Model used
 Downloading, extraction and placing it in assets folder has been already done.
