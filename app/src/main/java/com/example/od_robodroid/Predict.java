@@ -1,11 +1,12 @@
 package com.example.od_robodroid;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
 
 import static com.example.od_robodroid.Global.classifier;
 import static com.example.od_robodroid.Global.executor;
@@ -18,6 +19,7 @@ public class Predict extends AppCompatActivity {
 
     private TextView textViewResult;
     private ImageView imageViewResult;
+    private TextView textViewPred;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,13 @@ public class Predict extends AppCompatActivity {
 
         imageViewResult = findViewById(R.id.imageview_predict);
         textViewResult = findViewById(R.id.textview_result);
+        textViewPred = findViewById(R.id.textview_pred);
 
         imageViewResult.setImageBitmap(mBitmap1);
 
         List<Classifier.Recognition> results = classifier.recognizeImage(mBitmap);
-        textViewResult.setTextSize(25);
-        textViewResult.setText(results.get(0).getTitle());
+        textViewResult.setText("Predicted Object: "+results.get(0).getTitle());
+        textViewPred.setText("Probability is: "+Float.toString(results.get(0).getConfidence()*100)+"%");
     }
 
     @Override

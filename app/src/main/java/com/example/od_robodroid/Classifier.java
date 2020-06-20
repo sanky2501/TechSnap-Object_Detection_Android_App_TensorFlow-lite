@@ -25,9 +25,7 @@ public interface Classifier {
         public String getTitle() {
             return title;
         }
-        public Float getConfidence() {
-            return confidence;
-        }
+        public float getConfidence(){return confidence;}
 
         @Override
         public String toString() {

@@ -1,8 +1,5 @@
 package com.example.od_robodroid;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.example.od_robodroid.Global.INPUT_SIZE;
 import static com.example.od_robodroid.Global.LABEL_PATH;
@@ -44,8 +44,8 @@ public class ImagePreview extends AppCompatActivity {
                 detect.setBackgroundColor(getColor(R.color.clicked));
                 Thread initTensorFlow = new Thread(){
                     public void run(){
-                        LABEL_PATH = "labels3.txt";
-                        MODEL_PATH = "test3.tflite";
+                        LABEL_PATH="labels3.txt";
+                        MODEL_PATH="test3.tflite";
                         initTensorFlowAndLoadModel();
                         Intent i =new Intent(getApplicationContext(), Predict.class);
                         startActivity(i);
