@@ -32,7 +32,7 @@ Downloading, extraction and placing it in assets folder has been already done.
 
 If you explicitly want to download the model, you can download from [here]. Extract the zip to get the .tflite and label file.
 
-## Flowchrt:-
+## Flowchart:-
 
 ![Flowchart](https://github.com/sanky2501/Object-Detection-using-TFlite-in-android/blob/master/Flowchart.png)
 
